@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -28,6 +29,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
  * project.
  */
 public class Robot extends TimedRobot {
+  SlewRateLimiter slewController = new SlewRateLimiter(0.5);
   WPI_TalonFX rightFront = new WPI_TalonFX(0); // Correct device numbers later
   WPI_TalonFX rightBack = new WPI_TalonFX(1);
   WPI_TalonFX leftFront = new WPI_TalonFX(2);
@@ -81,12 +83,13 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    drive.arcadeDrive(-leftStickY, -leftStickX, true);;
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+      drive.arcadeDrive(slewController.calculate(-leftStickY), -leftStickX, true);
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
