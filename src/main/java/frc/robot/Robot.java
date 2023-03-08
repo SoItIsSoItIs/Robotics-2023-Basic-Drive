@@ -30,10 +30,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
  */
 public class Robot extends TimedRobot {
   SlewRateLimiter slewController = new SlewRateLimiter(0.5);
-  WPI_TalonFX rightFront = new WPI_TalonFX(0); // Correct device numbers later
-  WPI_TalonFX rightBack = new WPI_TalonFX(1);
+  WPI_TalonFX rightFront = new WPI_TalonFX(4); // Correct device numbers later
+  WPI_TalonFX rightBack = new WPI_TalonFX(3);
   WPI_TalonFX leftFront = new WPI_TalonFX(2);
-  WPI_TalonFX leftback = new WPI_TalonFX(3);
+  WPI_TalonFX leftback = new WPI_TalonFX(1);
 
   MotorControllerGroup motorGroupLeft = new MotorControllerGroup(leftFront, leftback);
   MotorControllerGroup motorGroupRight = new MotorControllerGroup(rightFront, rightBack);
